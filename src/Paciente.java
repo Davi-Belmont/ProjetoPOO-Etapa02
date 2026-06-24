@@ -1,13 +1,14 @@
-public class Paciente {
-    public String nome;
+public class Paciente extends Pessoa {
+
     public String cpf;
     public int idade;
     public String telefone;
     public String convenioNome;
     public boolean ativo;
 
+    // construtor 1: nome e cpf
     public Paciente(String nome, String cpf) {
-        this.nome = nome;
+        super(nome); // chamando o construtor da superclasse Pessoa 
         this.cpf = cpf;
         this.idade = 0;
         this.telefone = "";
@@ -15,8 +16,9 @@ public class Paciente {
         this.ativo = true;
     }
 
+    // construtor 2: idade e telefone
     public Paciente(String nome, String cpf, int idade, String telefone) {
-        this.nome = nome;
+        super(nome); // Passa o nome para a classe base
         this.cpf = cpf;
         this.idade = idade;
         this.telefone = telefone;
@@ -26,7 +28,7 @@ public class Paciente {
 
     // construtor com todos os dados
     public Paciente(String nome, String cpf, int idade, String telefone, String convenioNome) {
-        this.nome = nome;
+        super(nome); // Passa o nome para a classe base
         this.cpf = cpf;
         this.idade = idade;
         this.telefone = telefone;
@@ -51,12 +53,16 @@ public class Paciente {
         this.ativo = false;
     }
 
+
+    // Sobscreve o metodo abstrato de Pessoa
+    @Override
     public String exibirResumo() {
         String status = "Sim";
         if (!ativo) {
             status = "Nao";
         }
-        return "Nome: " + nome + " | CPF: " + cpf + " | Idade: " + idade
+        // usando getNome para pegar o nome da classe mae
+        return "Nome: " + getNome() + " | CPF: " + cpf + " | Idade: " + idade
                 + " | Tel: " + telefone + " | Convenio: " + convenioNome
                 + " | Ativo: " + status;
     }

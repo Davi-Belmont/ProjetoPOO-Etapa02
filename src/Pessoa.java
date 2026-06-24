@@ -7,7 +7,7 @@ public abstract class Pessoa {
     }
 
     // metodo abstrato 
-    public abstract void exibirResumo();
+    public abstract String exibirResumo();
 
     // Getters e Setters
     public String getNome(){
