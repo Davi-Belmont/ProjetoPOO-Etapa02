@@ -1,0 +1,5 @@
+# Ambiente de Desenvolvimento Local (Docker)
+Dockerfile
+docker-compose.yml
+.docker/
+bin/
