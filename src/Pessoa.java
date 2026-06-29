@@ -1,23 +1,69 @@
 public abstract class Pessoa {
-    protected String nome;
 
-    // Criando o construtor principal
-    public Pessoa(String nome){
+    protected String nome;
+    protected String cpf;
+    protected String telefone;
+    protected String dataNascimento;
+
+    public Pessoa(String nome) {
         this.nome = nome;
     }
 
-    // metodo abstrato 
+    // sorbecarga
+    public Pessoa(String nome, String cpf,
+                  String telefone,
+                  String dataNascimento) {
+
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.dataNascimento = dataNascimento;
+    }
+
+    // metodo abstrato
     public abstract String exibirResumo();
 
-    // Getters e Setters
-    public String getNome(){
+    // getters e setters
+
+    public String getNome() {
         return nome;
     }
-    // Protege o estado do objeto contra nomes vazios ou nulos
+
     public void setNome(String nome) {
+
         if (nome == null || nome.equals("")) {
-            throw new IllegalArgumentException("Nome inválido! O nome não pode ser vazio ou nulo.");
+            throw new IllegalArgumentException("Nome invalido");
         }
+
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+
+        if (cpf == null || cpf.equals("")) {
+            throw new IllegalArgumentException("CPF invalido");
+        }
+
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }
