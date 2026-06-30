@@ -9,7 +9,7 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    // sorbecarga
+    // sobrecarga
     public Pessoa(String nome, String cpf,
                   String telefone,
                   String dataNascimento) {
@@ -23,7 +23,7 @@ public abstract class Pessoa {
     // metodo abstrato
     public abstract String exibirResumo();
 
-    // getters e setters
+    // Getters e Setters
 
     public String getNome() {
         return nome;

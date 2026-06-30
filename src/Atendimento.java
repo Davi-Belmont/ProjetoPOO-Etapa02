@@ -1,9 +1,9 @@
 public class Atendimento {
-    public int indiceConsulta;
-    public String observacoes;
-    public String diagnostico;
-    public String[] procedimentos;
-    public int totalProcedimentos;
+    private int indiceConsulta;
+    private String observacoes;
+    private String diagnostico;
+    private String[] procedimentos;
+    private int totalProcedimentos;
 
     // registro basico - so observacoes
     public Atendimento(int indiceConsulta, String observacoes) {
@@ -34,6 +34,53 @@ public class Atendimento {
             this.procedimentos[i] = procedimentos[i];
         }
     }
+
+    // Getters e Setters
+
+    public int getIndiceConsulta() {
+        return indiceConsulta;
+    }
+    // Validação: índice não pode ser negativo
+    public boolean setIndiceConsulta(int indiceConsulta) {
+        if(indiceConsulta <0) {
+            System.out.println("Erro: Índice de consulta não pode ser negativo.");
+            return false;
+        }
+        this.indiceConsulta = indiceConsulta;
+        return true;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+    // Validação: observações não podem ser nulas
+    public boolean setObservaçoes(String observaçoes) {
+        if (observacoes == null) {
+            System.out.println("Erro: Observações não podem ser nulas.");
+            return false;
+        }
+        this.observacoes = observaçoes;
+        return true;
+    }
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+    public void setDiagnostico(String diagnostico) {
+        if (diagnostico == null) {
+            this.diagnostico = "";
+        } else {
+            this.diagnostico = diagnostico;
+        }
+    }
+    public String[] getProcedimentos() {
+        String[] copia = new String[totalProcedimentos];
+        for (int i = 0; i < totalProcedimentos; i++) {
+            copia[i] = procedimentos[i];
+        }
+        return copia;
+    }
+
+    // Métodos de negócio
 
     // adiciona um por vez
     public void adicionarProcedimento(String procedimento) {

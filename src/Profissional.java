@@ -12,7 +12,7 @@ public abstract class Profissional extends Pessoa {
     // so nome e especialidade
     public Profissional(String nome, String especialidade) {
         super(nome);
-        this.especialidade = especialidade;
+        this.setEspecialidade (especialidade);
         this.registroProfissional = "";
         this.valorConsulta = 0;
         this.diasDisponiveis = new ArrayList<>();
@@ -43,8 +43,8 @@ public abstract class Profissional extends Pessoa {
     }
 
     public void atualizar(String registro, double valor) {
-        this.registroProfissional = registro;
-        this.valorConsulta = valor;
+        this.setRegistroProfissional (registro);
+        this.setValorConsulta (valor);
     }
 
     public void atualizar(String registro, double valor, String[] dias, int totalDias) {
@@ -57,7 +57,7 @@ public abstract class Profissional extends Pessoa {
     }
 
     // verifica se o profissional atende naquele dia
-   protected boolean atendeNoDia(String dia) {
+   public boolean atendeNoDia(String dia) {
 
     for (String diaDisponivel : diasDisponiveis) {
 

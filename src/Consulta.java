@@ -79,7 +79,9 @@ public class Consulta {
     public String getStatus() {
         return status;
     }
-
+    public String getTipo() {
+        return tipo;
+    }
     // Metódos de negócio
 
     public void cancelar() {

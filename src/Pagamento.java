@@ -1,8 +1,8 @@
 public class Pagamento {
-    public int indiceConsulta;
-    public double valorFinal;
-    public String tipoPagamento;
-    public int parcelas;
+    private int indiceConsulta;
+    private double valorFinal;
+    private String tipoPagamento;
+    private int parcelas;
 
     public Pagamento(int indiceConsulta, double valorFinal, String tipoPagamento) {
         this.indiceConsulta = indiceConsulta;
@@ -19,6 +19,75 @@ public class Pagamento {
         this.parcelas = parcelas;
     }
 
+    // Getters e Setters
+
+    public int getIndiceConsulta() {
+        return indiceConsulta;
+    }
+
+    // Validaçao: índice naã pode ser negativo
+    public boolean setIndiceConsulta(int indiceConsulta) {
+        if (indiceConsulta < 0) {
+            System.out.println("Erro: indice de consulta invalido.");
+            return false;
+        }
+        this.indiceConsulta = indiceConsulta;
+        return true;
+    }
+
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
+    // Validação: valor não pode ser negativo
+    public boolean setValorFinal(double valorFinal) {
+        if (valorFinal < 0) {
+            System.out.println("Erro: valor final nao pode ser negativo.");
+            return false;
+        }
+        this.valorFinal = valorFinal;
+        return true;
+    }
+
+    public String getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    // Validação: tipo precisa ser um valor válido
+    public boolean setTipoPagamento(String tipoPagamento) {
+        if (tipoPagamento == null) {
+            System.out.println("Erro: tipo de pagamento invalido.");
+            return false;
+        }
+
+        boolean valido = tipoPagamento.equals("dinheiro") || tipoPagamento.equals("cartao")
+                || tipoPagamento.equals("pix") || tipoPagamento.equals("convenio");
+
+        if (!valido) {
+            System.out.println("Erro: tipo de pagamento invalido. Use: dinheiro, cartao, pix ou convenio.");
+            return false;
+        }
+
+        this.tipoPagamento = tipoPagamento;
+        return true;
+    }
+
+    public int getParcelas() {
+        return parcelas;
+    }
+
+    // validação: parcelas deve ser no minimo 1
+    public boolean setParcelas(int parcelas) {
+        if (parcelas < 1) {
+            System.out.println("Erro: numero de parcelas invalido.");
+            return false;
+        }
+        this.parcelas = parcelas;
+        return true;
+    }
+
+    // Métodos de negócio
+    
     // sem desconto nenhum
     public static double calcularValor(double valorBase) {
         return valorBase;
