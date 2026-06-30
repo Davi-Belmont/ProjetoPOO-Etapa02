@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Profissional extends Pessoa {
     
-    public String especialidade;
-    public String registroProfissional;
-    public double valorConsulta;
-    public String[] diasDisponiveis;
-    public int totalDias;
+    private String especialidade;
+    private String registroProfissional;
+    private double valorConsulta;
+    private List<String> diasDisponiveis;
+    private List<HorarioDisponivel> horarios;
 
     // so nome e especialidade
     public Profissional(String nome, String especialidade) {
@@ -12,8 +15,8 @@ public abstract class Profissional extends Pessoa {
         this.especialidade = especialidade;
         this.registroProfissional = "";
         this.valorConsulta = 0;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = 0;
+        this.diasDisponiveis = new ArrayList<>();
+        this.horarios = new ArrayList<>();
     }
 
     public Profissional(String nome, String especialidade, String registroProfissional, double valorConsulta) {
@@ -21,8 +24,8 @@ public abstract class Profissional extends Pessoa {
         this.especialidade = especialidade;
         this.registroProfissional = registroProfissional;
         this.valorConsulta = valorConsulta;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = 0;
+        this.diasDisponiveis = new ArrayList<>();
+        this.horarios = new ArrayList<>();
     }
 
     // construtor completo com dias
@@ -32,11 +35,11 @@ public abstract class Profissional extends Pessoa {
         this.especialidade = especialidade;
         this.registroProfissional = registroProfissional;
         this.valorConsulta = valorConsulta;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = totalDias;
+        this.diasDisponiveis = new ArrayList<>();
         for (int i = 0; i < totalDias; i++) {
-            this.diasDisponiveis[i] = dias[i];
+            this.diasDisponiveis.add(dias[i]);
         }
+        this.horarios = new ArrayList<>();
     }
 
     public void atualizar(String registro, double valor) {
@@ -47,21 +50,35 @@ public abstract class Profissional extends Pessoa {
     public void atualizar(String registro, double valor, String[] dias, int totalDias) {
         this.registroProfissional = registro;
         this.valorConsulta = valor;
-        this.totalDias = totalDias;
+        this.diasDisponiveis.clear();
         for (int i = 0; i < totalDias; i++) {
-            this.diasDisponiveis[i] = dias[i];
+            this.diasDisponiveis.add(dias[i]);
         }
     }
 
     // verifica se o profissional atende naquele dia
-    public boolean atendeNoDia(String dia) {
-        for (int i = 0; i < totalDias; i++) {
-            if (diasDisponiveis[i].equals(dia)) {
-                return true;
-            }
+   protected boolean atendeNoDia(String dia) {
+
+    for (String diaDisponivel : diasDisponiveis) {
+
+        if (diaDisponivel.equalsIgnoreCase(dia)) {
+            return true;
         }
+    }
+
         return false;
     }
+
+    // agregacao
+    public void adicionarHorario(HorarioDisponivel horario) {
+        horarios.add(horario);
+    }
+
+    public List<HorarioDisponivel> getHorarios() {
+        return horarios;
+    }
+
+
 
     // valida as especialidades aceitas pela clinica
     public static boolean especialidadeValida(String esp) {
@@ -72,17 +89,68 @@ public abstract class Profissional extends Pessoa {
         return false;
     }
 
+    // getters
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public String getRegistroProfissional() {
+        return registroProfissional;
+    }
+
+    public double getValorConsulta() {
+        return valorConsulta;
+    }
+
+    public List<String> getDiasDisponiveis() {
+        return diasDisponiveis;
+    }
+
+    // setters
+
+    public void setEspecialidade(String especialidade) {
+
+        if (especialidade == null || especialidade.equals("")) {
+            throw new IllegalArgumentException("Especialidade invalida");
+        }
+
+        this.especialidade = especialidade;
+    }
+
+    public void setRegistroProfissional(String registroProfissional) {
+
+        if (registroProfissional == null || registroProfissional.equals("")) {
+            throw new IllegalArgumentException("Registro invalido");
+        }
+
+        this.registroProfissional = registroProfissional;
+    }
+
+    public void setValorConsulta(double valorConsulta) {
+
+        if (valorConsulta < 0) {
+            throw new IllegalArgumentException("Valor invalido");
+        }
+
+        this.valorConsulta = valorConsulta;
+    }
+
+    public void setDiasDisponiveis(List<String> diasDisponiveis) {
+        this.diasDisponiveis = diasDisponiveis;
+    }
+
     public abstract void registrarEspecifico();
 
     // Sobreescrevendo o metodo abstrado de pessoa
     @Override
     public String exibirResumo() {
         String dias = "";
-        for (int i = 0; i < totalDias; i++) {
+        for (int i = 0; i < diasDisponiveis.size(); i++) {
             if (i > 0) dias = dias + ", ";
-            dias = dias + diasDisponiveis[i];
+            dias = dias + diasDisponiveis.get(i);
         }
-        return "Nome: " + getNome() + " | Espec: " + especialidade + " | Reg: " + registroProfissional
-                + " | Valor: R$" + valorConsulta + " | Dias: " + dias;
+        return "Nome: " + getNome() + " | Espec: " + getEspecialidade() + " | Reg: " + getRegistroProfissional()
+                + " | Valor: R$" + getValorConsulta() + " | Dias: " + dias;
     }
 }

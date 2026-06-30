@@ -1,9 +1,9 @@
 public abstract class Pessoa {
 
-    protected String nome;
-    protected String cpf;
-    protected String telefone;
-    protected String dataNascimento;
+    private String nome;
+    private String cpf;
+    private String telefone;
+    private String dataNascimento;
 
     public Pessoa(String nome) {
         this.nome = nome;
