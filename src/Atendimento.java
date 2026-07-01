@@ -1,4 +1,4 @@
-public class Atendimento {
+public class Atendimento implements Exportavel {
     private int indiceConsulta;
     private String observacoes;
     private String diagnostico;
@@ -98,6 +98,20 @@ public class Atendimento {
                 totalProcedimentos++;
             }
         }
+    }
+
+    // Método da interface exportavel
+
+    @Override
+    public String exportarDados() {
+        String procs = "";
+        for (int i = 0; i < totalProcedimentos; i++) {
+            procs = procs + procedimentos[i];
+            if (i < totalProcedimentos - 1) {
+                procs = procs + ",";
+            }
+        }
+        return indiceConsulta + ";" + observacoes + ";" + diagnostico + ";" + procs;
     }
 
     public String exibirResumo() {

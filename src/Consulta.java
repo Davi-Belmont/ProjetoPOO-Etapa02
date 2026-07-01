@@ -1,4 +1,4 @@
-public class Consulta {
+public class Consulta implements Agendavel, Exportavel{
     private String cpfPaciente;
     private String nomeProfissional;
     private String data;
@@ -79,24 +79,61 @@ public class Consulta {
     public String getStatus() {
         return status;
     }
+
+    public boolean setStatus(String status) {
+        if (status == null) {
+            System.out.println("Erro: status nao pode ser nulo.");
+            return false;
+        }
+
+        boolean valido = status.equals("agendada") || status.equals("cancelada")
+                || status.equals("remarcada") || status.equals("realizada");
+
+        if (!valido) {
+            System.out.println("Erro: status invalido. Use: agendada, cancelada, remarcada ou realizada.");
+            return false;
+        }
+
+        this.status = status;
+        return true;
+    }
+    
     public String getTipo() {
         return tipo;
     }
-    // Metódos de negócio
 
-    public void cancelar() {
-        this.status = "cancelada";
+    // Métodos da interface agendavel
+
+    @Override
+    public void agendar() {
+        this.setStatus("agendada");
     }
 
-    // cancelar com motivo - retorna a msg formatada
+    @Override
+    public void cancelar() {
+        this.setStatus("cancelada");
+    }
+
+    @Override
+    public void remarcar() {
+        this.setStatus("remarcada");
+    }
+
+    // cancelar com motivo - sobrecarga, nao faz parte do contrato da interface
     public String cancelar(String motivo) {
-        this.status = "cancelada";
+        this.setStatus("cancelada");
         return "Consulta cancelada. Motivo: " + motivo;
     }
 
-    public void remarcar() {
-        this.status = "remarcada";
+    // Métodos da interface exportavel
+
+    @Override
+    public String exportarDados() {
+        return cpfPaciente + ";" + nomeProfissional + ";" + data + ";"
+                + horario + ";" + tipo + ";" + status;
     }
+
+    // Metódos de negócio
 
     public void realizar() {
         this.status = "realizada";

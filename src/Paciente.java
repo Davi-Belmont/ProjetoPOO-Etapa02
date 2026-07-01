@@ -1,4 +1,4 @@
-public class Paciente extends Pessoa {
+public class Paciente extends Pessoa implements Exportavel {
 
     private int idade;
     private String telefone;
@@ -96,6 +96,13 @@ public class Paciente extends Pessoa {
         this.ativo = false;
     }
 
+    // Método da interface exportavel
+
+    @Override
+    public String exportarDados() {
+        return getNome() + ";" + getCpf() + ";" + idade + ";" + telefone
+                + ";" + convenioNome + ";" + ativo;
+    }
 
     // Sobscreve o metodo abstrato de Pessoa
     @Override

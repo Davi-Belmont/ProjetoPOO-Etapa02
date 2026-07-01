@@ -1,4 +1,4 @@
-public class Pagamento {
+public class Pagamento implements Exportavel {
     private int indiceConsulta;
     private double valorFinal;
     private String tipoPagamento;
@@ -111,6 +111,13 @@ public class Pagamento {
             valor = 0;
         }
         return valor;
+    }
+
+    // Método da interface exportavel
+
+    @Override
+    public String exportarDados() {
+        return indiceConsulta + ";" + valorFinal + ";" + tipoPagamento + ";" + parcelas;
     }
 
     public String exibirResumo() {
